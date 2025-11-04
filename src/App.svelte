@@ -5,7 +5,7 @@
   let chart;
   let headers = [];
   let datasets = [];
-  let selectedData = '';
+  let selectedData = 'View All';
 
   onMount(async () => {
     const data = await fetch('/data/USA_I_only_F0_8-30-2025.csv');
@@ -22,9 +22,7 @@
       borderWidth: 2,
       fill: true
     }));
-
-    selectedData = headers[1];
-
+    
     const ctx = document.getElementById('myChart').getContext('2d');
 
     chart = new Chart(ctx, {
@@ -36,13 +34,18 @@
   });
 
   function refresh() {
-    const dataset = datasets.find(d => d.label === selectedData);
-    chart.data.datasets = [dataset];
+    if (selectedData === 'View All') {
+      chart.data.datasets = datasets;
+    } else {
+      const dataset = datasets.find(d => d.label === selectedData);
+      chart.data.datasets = [dataset];
+    }
     chart.update();
   };
 </script>
 
 <select bind:value={selectedData} on:change={refresh}>
+  <option value="View All">View All</option>
   {#each headers.slice(1) as column}
     <option value={column}>{column}</option>
   {/each}
