@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "chart.js": "^4.5.1",
-    "sirv-cli": "^2.0.0"
+    "sirv-cli": "^2.0.0",
+    "us-state-converter": "^1.0.8"
   }
 }

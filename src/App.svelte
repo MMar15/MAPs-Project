@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import Chart from 'chart.js/auto';
+  import converter from "us-state-converter";
 
   let chart;
   let headers = [];
@@ -19,6 +20,8 @@
     const headers = rows[0];
     const dataRows = rows.slice(1);
     const labels = dataRows.map(row => row[0]);
+
+    splitStates(headers);
 
     const datasets = headers.slice(1).map((name, i) => ({
       label: name,
@@ -82,12 +85,14 @@
     const states = {};
     stateHeaders.forEach(name => {
       const acro = name.slice(0, 2).toUpperCase();
-
-      if (!states[acro]) {
-        states[acro] = [];
+      const unacro = converter(acro);
+      const fullName = unacro ? unacro.name : acro;
+      if (!states[fullName]) {
+        states[fullName] = [];
       }
-      states[acro].push(name);
+      states[fullName].push(name);
     });
+    console.log("States grouped: ", states);
     return states;
   }
 </script>
