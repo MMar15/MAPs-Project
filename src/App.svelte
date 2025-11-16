@@ -76,6 +76,20 @@
     }
     chart.update();
   };
+
+  function splitStates(headers) {
+    const stateHeaders = headers.slice(1);
+    const states = {};
+    stateHeaders.forEach(name => {
+      const acro = name.slice(0, 2).toUpperCase();
+
+      if (!states[acro]) {
+        states[acro] = [];
+      }
+      states[acro].push(name);
+    });
+    return states;
+  }
 </script>
 
 <select bind:value={selectedArea} on:change={() => { selectedData = 'View All'; refresh(); }}>
