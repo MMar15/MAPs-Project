@@ -42,7 +42,7 @@
     labels = states.labels;
     stateSets = splitStates(states.headers);
 
-    const ctx = document.getElementById('myChart').getContext('2d');
+    const ctx = chart.getContext('2d');
 
     chart = new Chart(ctx, {
       type: 'line',
@@ -124,5 +124,5 @@
 </select>
 
 <div style="width: 100%; height: 100%;">
-  <canvas id="myChart"></canvas>
+  <canvas bind:this={chart}></canvas>
 </div>
